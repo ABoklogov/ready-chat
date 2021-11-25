@@ -5,19 +5,16 @@ const path = require("path");
 const server = require("http").createServer(app);
 const ws = require("ws");
 require("dotenv").config();
+const PORT = process.env.PORT || 8080;
 
 const wsServer = new ws.Server({ server: server });
-
-server.listen(5000, () => {
-  console.log(`Сервер запустился на порту 5000`);
-});
 
 const clients = [];
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, "build")));
-app.use(express.static(path.join(__dirname, "build/static")));
-app.use(express.static(path.join(__dirname)));
+// app.use(express.static(path.join(__dirname, "build/static")));
+// app.use(express.static(path.join(__dirname)));
 
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
@@ -51,3 +48,9 @@ const broadcastMessage = (message) => {
     client.send(JSON.stringify(message));
   });
 };
+
+app.get("/", (req, res) => res.send("Привет сервер!"));
+
+server.listen(PORT, () => {
+  console.log(`Сервер запустился на порту ${PORT}`);
+});
