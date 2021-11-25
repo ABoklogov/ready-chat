@@ -179,7 +179,7 @@
                   setUsername: y,
                   connect: function () {
                     (l.current = new WebSocket(
-                      "ws://chat-aboklogov.herokuapp.com/"
+                      "wss://chat-aboklogov.herokuapp.com/"
                     )),
                       (l.current.onopen = function () {
                         p(!0),
